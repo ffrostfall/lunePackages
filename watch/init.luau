@@ -4,6 +4,7 @@ local getFilesUnderDirectory = require("../getFilesUnderDirectory")
 
 local function watchPaths(paths: { string }, callback: () -> ())
 	local lastModified = {}
+
 	for _, path in paths do
 		lastModified[path] = fs.metadata(path).modifiedAt
 	end
@@ -39,10 +40,13 @@ function watch.directory(directories: { string }, onChanged: () -> ()): thread
 		end
 	end
 
+	task.spawn(onChanged)
 	return task.spawn(watchPaths, paths, onChanged)
 end
 
 function watch.file(fileName: string, callback: () -> ())
+	task.spawn(callback)
+
 	return task.spawn(function()
 		local lastModified = fs.metadata(fileName).modifiedAt
 
