@@ -1,12 +1,12 @@
-local process = require("@lune/process")
+local spawnProcess = require("../spawnProcess")
 
 local rojo = {}
 
-function rojo.serve(projectFile: string)
-	process.spawn("rojo", { "serve", projectFile })
+function rojo.serve(projectFile: string): thread
+	return spawnProcess("rojo", { "serve", projectFile })
 end
 
-function rojo.sourcemap(projectFile: string, outputFile: string, watch: boolean)
+function rojo.sourcemap(projectFile: string, outputFile: string, watch: boolean): thread
 	local parameters = {
 		"sourcemap",
 		projectFile,
@@ -19,11 +19,11 @@ function rojo.sourcemap(projectFile: string, outputFile: string, watch: boolean)
 		table.insert(parameters, "--watch")
 	end
 
-	process.spawn("rojo", parameters)
+	return spawnProcess("rojo", parameters)
 end
 
-function rojo.build(projectFile: string)
-	process.spawn("rojo", { "build", projectFile })
+function rojo.build(projectFile: string): thread
+	return spawnProcess("rojo", { "build", projectFile })
 end
 
 return rojo
