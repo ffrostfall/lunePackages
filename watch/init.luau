@@ -6,7 +6,9 @@ local function watchPaths(paths: { string }, callback: () -> ())
 	local lastModified = {}
 
 	for _, path in paths do
+		print(path)
 		lastModified[path] = fs.metadata(path).modifiedAt
+		print(fs.metadata(path))
 	end
 
 	while true do
