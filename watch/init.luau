@@ -18,7 +18,7 @@ local function read(currentDir: string, arrayRef: { string })
 	end
 end
 
-local function watchDirectory(paths: { string }, callback: () -> ())
+local function watchPaths(paths: { string }, callback: () -> ())
 	local lastModified = {}
 	for _, path in paths do
 		lastModified[path] = fs.metadata(path).modifiedAt
@@ -46,11 +46,14 @@ end
 
 local watch = {}
 
-function watch.directory(directory: string, onChanged: () -> ()): thread
+function watch.directory(directories: { string }, onChanged: () -> ()): thread
 	local paths = {}
-	read(directory, paths)
 
-	return task.spawn(watchDirectory, paths, onChanged)
+	for _, directoryPath in directories do
+		read(directoryPath, paths)
+	end
+
+	return task.spawn(watchPaths, paths, onChanged)
 end
 
 function watch.file(fileName: string, callback: () -> ())
