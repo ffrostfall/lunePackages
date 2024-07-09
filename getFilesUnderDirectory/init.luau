@@ -15,7 +15,7 @@ local function read(currentDir: string): { string }
 			local subdirectoryContents = read(path)
 
 			for _, element in subdirectoryContents do
-				table.insert(paths, path .. "/" .. element)
+				table.insert(paths, element)
 			end
 		else
 			table.insert(paths, path)
