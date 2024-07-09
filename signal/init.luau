@@ -97,10 +97,10 @@ function luauSignal.disconnectAll(self: LuauSignalType)
 end
 
 export type Identity<T...> = {
-	Fire: (self: Identity<T...>, T...) -> (),
-	Connect: (self: Identity<T...>, callback: (T...) -> ()) -> () -> (),
-	Once: (self: Identity<T...>, callback: (T...) -> ()) -> () -> (),
-	DisconnectAll: (self: Identity<T...>) -> (),
+	fire: (self: Identity<T...>, T...) -> (),
+	connect: (self: Identity<T...>, callback: (T...) -> ()) -> () -> (),
+	once: (self: Identity<T...>, callback: (T...) -> ()) -> () -> (),
+	disconnectAll: (self: Identity<T...>) -> (),
 }
 
 return (constructor :: any) :: <T...>() -> Identity<T...>
