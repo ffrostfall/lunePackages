@@ -9,7 +9,21 @@ local function createStylerFunction(opener: number, closer: number)
 	end
 end
 
+local function combineStyles(styleArray: { (text: string) -> string })
+	return function(text: string)
+		local result = text
+
+		for _, style in styleArray do
+			result = style(result)
+		end
+
+		return result
+	end
+end
+
 return {
+	combineStyles = combineStyles,
+
 	modifier = {
 		reset = createStylerFunction(0, 0),
 		bold = createStylerFunction(1, 22),
