@@ -1,22 +1,6 @@
 local fs = require("@lune/fs")
 local task = require("@lune/task")
-
-local function read(currentDir: string, arrayRef: { string })
-	local contents = fs.readDir(currentDir)
-	if not contents then
-		return
-	end
-
-	for _, filePath in contents do
-		local path = currentDir .. "/" .. filePath
-
-		if fs.isDir(path) then
-			read(path, arrayRef)
-		else
-			table.insert(arrayRef, path)
-		end
-	end
-end
+local getFilesUnderDirectory = require("../getFilesUnderDirectory")
 
 local function watchPaths(paths: { string }, callback: () -> ())
 	local lastModified = {}
@@ -50,7 +34,9 @@ function watch.directory(directories: { string }, onChanged: () -> ()): thread
 	local paths = {}
 
 	for _, directoryPath in directories do
-		read(directoryPath, paths)
+		for _, filePath in getFilesUnderDirectory(directoryPath) do
+			table.insert(paths, filePath)
+		end
 	end
 
 	return task.spawn(watchPaths, paths, onChanged)
