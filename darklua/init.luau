@@ -15,7 +15,7 @@ function darklua.build(projectDirectory: string, targetDirectory: string, config
 		table.insert(parameters, "--watch")
 	end
 
-	spawnProcess("darklua", parameters)
+	return spawnProcess("darklua", parameters)
 end
 
 return darklua
