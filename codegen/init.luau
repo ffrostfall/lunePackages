@@ -57,7 +57,7 @@ function codegen.returnStmt(value: LuauExpr): LuauStmt
 end
 
 function codegen.exprArray(elements: { LuauExpr }): LuauExpr
-	return `{table.concat(elements, ", ")}`
+	return `{table.concat(elements, ",\n")}`
 end
 
 function codegen.exprKeyDictionary(dict: { [LuauExpr]: LuauExpr })
@@ -67,7 +67,7 @@ function codegen.exprKeyDictionary(dict: { [LuauExpr]: LuauExpr })
 		table.insert(lines, `[{key}] = {value}`)
 	end
 
-	return `{table.concat(lines, ", ")}`
+	return `{table.concat(lines, ", \n")}`
 end
 
 function codegen.exprIdentifierDictionary(dict: { [string]: LuauExpr })
@@ -77,7 +77,7 @@ function codegen.exprIdentifierDictionary(dict: { [string]: LuauExpr })
 		table.insert(lines, `{key} = {value}`)
 	end
 
-	return `{table.concat(lines, ", ")}`
+	return `{table.concat(lines, ",\n")}`
 end
 
 function codegen.exprString(value: string): LuauExpr
