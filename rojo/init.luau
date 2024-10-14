@@ -22,8 +22,8 @@ function rojo.sourcemap(projectFile: string, outputFile: string, watch: boolean)
 	return spawnProcess("rojo", parameters)
 end
 
-function rojo.build(projectFile: string): thread
-	return spawnProcess("rojo", { "build", projectFile })
+function rojo.build(projectFile: string, output: string): thread
+	return spawnProcess("rojo", { "build", projectFile, "--output", output })
 end
 
 return rojo
