@@ -48,8 +48,8 @@ function codegen.defineTypeStmt(name: string, value: LuauType): LuauStmt
 	return `type {name} = {value}`
 end
 
-function codegen.defineExportedTypeStmt(value: LuauType): LuauStmt
-	return `export type {value}`
+function codegen.defineExportedTypeStmt(name: string, value: LuauType): LuauStmt
+	return `export type {name} = {value}`
 end
 
 function codegen.returnStmt(value: LuauExpr): LuauStmt
