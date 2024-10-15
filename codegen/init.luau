@@ -37,7 +37,7 @@ function codegen.parenType(containedType: LuauType): LuauType
 end
 
 function codegen.arrayType(containedType: LuauType): LuauType
-	return `{containedType}`
+	return `\{{containedType}\}`
 end
 
 function codegen.namedType(name: string): LuauType
