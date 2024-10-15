@@ -80,6 +80,16 @@ function codegen.exprIdentifierDictionary(dict: { [string]: LuauExpr })
 	return `\{{table.concat(lines, ",\n")}\}`
 end
 
+function codegen.typeIdentifierDictionary(dict: { [string]: LuauType })
+	local lines = {}
+
+	for key, value in dict do
+		table.insert(lines, `{key}: {value}`)
+	end
+
+	return `\{{table.concat(lines, ",\n")}\}`
+end
+
 function codegen.exprString(value: string): LuauExpr
 	return `"{value}"`
 end
