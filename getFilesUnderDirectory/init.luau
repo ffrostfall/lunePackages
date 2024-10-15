@@ -1,24 +1,22 @@
 local fs = require("@lune/fs")
 
-local function read(currentDir: string): { string }
+local function read(directory: string): { string }
 	local paths: { string } = {}
 
-	local contents = fs.readDir(currentDir)
+	local contents = fs.readDir(directory)
 	if not contents then
 		return {}
 	end
 
 	for _, filePath in contents do
-		local path = currentDir .. "/" .. filePath
-
-		if fs.isDir(path) then
-			local subdirectoryContents = read(path)
+		if fs.isDir(directory .. "/" .. filePath) then
+			local subdirectoryContents = read(directory .. "/" .. filePath)
 
 			for _, element in subdirectoryContents do
-				table.insert(paths, element)
+				table.insert(paths, filePath .. "/" .. element)
 			end
 		else
-			table.insert(paths, path)
+			table.insert(paths, filePath)
 		end
 	end
 
