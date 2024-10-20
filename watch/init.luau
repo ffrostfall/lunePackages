@@ -36,7 +36,7 @@ function watch.directory(directories: { string }, onChanged: () -> ()): thread
 
 	for _, directoryPath in directories do
 		for _, filePath in getFilesUnderDirectory(directoryPath) do
-			table.insert(paths, filePath)
+			table.insert(paths, `{directoryPath}/{filePath}`)
 		end
 	end
 
