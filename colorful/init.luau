@@ -1,6 +1,8 @@
 local ANSI_16 = "%c[%dm"
 
-local function createStylerFunction(opener: number, closer: number)
+export type Styler = (text: string) -> string
+
+local function createStylerFunction(opener: number, closer: number): Styler
 	local open = string.format(ANSI_16, 27, opener)
 	local close = string.format(ANSI_16, 27, closer)
 
@@ -9,7 +11,7 @@ local function createStylerFunction(opener: number, closer: number)
 	end
 end
 
-local function combineStyles(styleArray: { (text: string) -> string })
+local function combineStyles(styleArray: { (text: string) -> string }): Styler
 	return function(text: string)
 		local result = text
 
