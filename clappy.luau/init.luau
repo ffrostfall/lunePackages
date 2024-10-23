@@ -3,8 +3,6 @@ local parser = require("./parser")
 local process = require("@lune/process")
 local colorful = require("../colorful")
 
-local arguments = process.args
-
 export type Metadata = {
 	description: string,
 	author: string,
@@ -138,7 +136,7 @@ function cli.defineRootCommand(self: Identity, command: types.CommandInfo)
 end
 
 function cli.run(self: Identity)
-	local concatenated = table.concat(arguments, " ")
+	local concatenated = table.concat(process.args, " ")
 	local parserResult = parser(concatenated)
 	local isHelp = false
 	local subcommandHelp: string?
@@ -222,6 +220,8 @@ function cli.run(self: Identity)
 				break
 			end
 		end
+
+		table.remove(parserResult.arguments, 1)
 
 		assert(targetCommand, "wtf lol")
 
