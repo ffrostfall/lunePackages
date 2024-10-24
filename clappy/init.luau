@@ -187,8 +187,12 @@ function cli.run(self: Identity)
 			local targetCommand = self.subcommands[subcommandHelp]
 
 			print(`{colorful.modifier.bold("Parameters: ")}`)
-			for name, subcommandParameter in targetCommand.parameters do
-				print(`\t{colorful.modifier.bold(`{name}`)}: {tertiary(subcommandParameter.description)}`)
+			for _, subcommandParameter in targetCommand.parameters do
+				print(
+					`\t{colorful.modifier.bold(`{subcommandParameter.name}`)}: {tertiary(
+						subcommandParameter.description
+					)}`
+				)
 			end
 
 			print(`{colorful.modifier.bold("Options: ")}`)
