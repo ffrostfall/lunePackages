@@ -1,10 +1,11 @@
-local ANSI_16 = "%c[%dm"
+local ESCAPE = string.char(27)
+local ANSI_16 = `{ESCAPE}[%dm`
 
 export type Styler = (text: string) -> string
 
 local function createStylerFunction(opener: number, closer: number): Styler
-	local open = string.format(ANSI_16, 27, opener)
-	local close = string.format(ANSI_16, 27, closer)
+	local open = string.format(ANSI_16, opener)
+	local close = string.format(ANSI_16, closer)
 
 	return function(text: string)
 		return `{open}{text}{close}`
